@@ -1,0 +1,119 @@
+<% include ../partials/header.ejs %>
+	<link href="https://fonts.googleapis.com/css?family=Barrio|Caveat+Brush|Pacifico" rel="stylesheet">
+
+	<meta property="og:image" content="/openmusic.jpg" />
+	<meta property="og:title" content="OpenMusic" />
+	<meta property="og:description" content="Música aberta a todos." />
+
+
+
+	<div class="container" id="header">
+		<div class="container-fluid">
+			<div class="alert alert-success" role="alert">
+				<b></b><a href="https://openmusic.herokuapp.com" class="alert-link">O retrô é incrivel, mas o novo pode ser top. Testa aí. Click aqui</a></b>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container" id="content">
+		<div class="container-fluid">
+			<center>
+
+				<h1 style="font-family: 'Pacifico', cursive;">open music</h1>
+			</center>
+			<div class="input-group">
+				<input type="text" id="inputSearch" class="form-control" name="id" placeholder="Nome do artista/banda + nome da música">
+				<span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="goInput">Pesquisar!</button>
+      </span>
+			</div>
+			<!-- /input-group -->
+		</div>
+	</div>
+	<div class="container" id="searchResults">
+		<div class='container-fluid'>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="media">
+						<div class="media-left media-middle">
+							<a href="#">
+								<img class="media-object" id="image">
+							</a>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="media-body" id="searchResults">
+						<h3 class="media-heading" id="music-name"></h3>
+						<h4 class="media-heading" id="artist-name"></h4>
+
+						<h5 class="media-heading" id="collection-name"></h5>
+						<h5 class="media-heading" id="composer"></h5>
+						<h5 class="media-heading" id="genre"></h5>
+						<h5 class="media-heading" id="year"></h5>
+						<br>
+						<!--<p><a href="#" id="download" class="btn btn-primary" role="button" disabled="disabled">Baixar</a> <a href="#" id="listen" class="btn btn-default" disabled="disabled" role="button">Ouvir</a></p>
+     <br>-->
+
+
+
+
+					</div>
+				</div>
+				<div class="col-md-3">
+					<form method="post" action="/download/api">
+						<input type="hidden" name="id" id="musicID">
+						<div class="input-group">
+							<br>
+							<!--_br heuheuheuheu-->
+
+							<div class="input-group input-group-sm" style='display:none'>
+								<span class="input-group-addon" id="sizing-addon4">Youtube Url</span>
+								<input type="text" class="form-control" id='youtubeUrlInput' placeholder="http://youtu.be/123abc" aria-describedby="sizing-addon4" name='youtubeURL' style='width:100%'>
+							</div>
+							<br>
+
+
+							<div class="row">
+								<div class="col-md-8">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon" id="sizing-addon3">Lyrics</span>
+										<span class="input-group-addon">
+        <input type="checkbox" aria-label="..." name='lyrics' id='lyricCheckBox'>
+      </span>
+									</div>
+								</div>
+								<div class="col-md-4"> <button id="linkDireto" class="btn btn-primary" type="submit"><b><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</b></button>
+								</div>
+							</div>
+						</div>
+						<!-- /input-group -->
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		ʕ•ᴥ•ʔ
+	</div>
+	<script>
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-76795408-1', 'auto');
+		ga('send', 'pageview');
+	</script>

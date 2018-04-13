@@ -1,0 +1,21 @@
+ #header{
+  margin-top:20px;
+}
+#content{
+  margin-top:10%;
+}
+#logo{
+  font-family: 'Fredoka One', cursive;
+}
+#searchResults{
+  margin-top:20px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.small{
+  color:#aaa;
+}

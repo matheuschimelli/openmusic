@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<div class="container" id="header">
+  <div class="container-fluid">
+    <div class="row">
+  <div class="col-md-8">
+      <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#"><b>Atualizações</b> Detalhes das mudanças da última versão</a></li>
+  
+</ul>
+      
+      </div>
+  <div class="col-md-4">
+      <ul class="nav nav-pills">
+  <li role="presentation"><a href="#">Logs</a></li>
+  <li role="presentation"><a href="#">Feedback</a></li>
+          <li role="presentation"><a href="#">Ajuda</a></li>
+</ul>
+      </div>
+</div>
+  </div>
+</div>
+</head>
+<style>
+#header{
+
+</style>
+<div id="container">
+  
+<div class="container fluid">
+  <div class="alert alert-success" role="alert"><b>Atualizações</b> <a href="/logs">Clique aqui e veja as atualizações realizadas na versão 16.04.16</a></div>
+
+<div class="panel panel-default">
+  <div class="panel-body" id="contentTemplate">
+        <center><h1 style="font-weight:800">OpenMusic Search</h1></center>
+  <div class="input-group">
+
+      <input type="text" class="form-control" id="search" placeholder="Nome do artista ou banda + nome da música">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Pesquisar</button>
+      </span>
+    </div><!-- /input-group -->
+    <br>
+ <div class="container">
+   <div class="container-fluid">
+   
+<div class="row fluid" >
+<div class="media" id="searchResults">
+  <div class="media-left media-middle">
+    <a href="#">
+      <img class="media-object" id="image" >
+    </a>
+  </div>
+  <div class="media-body" id="searchResults">
+    <h3 class="media-heading" id="music-name"></h3>
+     <h4 class="media-heading" id="artist-name"></h4>
+    
+    <h5 class="media-heading" id="collection-name"></h5>
+    <br>
+     <p><a href="#" id="download" class="btn btn-primary" role="button">Baixar</a> <a href="#" id="listen" class="btn btn-default" disabled="disabled" role="button">Ouvir</a></p>
+     <br>
+     <a id="linkDireto" class="btn btn-primary">Download <b>direto</b></a>
+     
+  </div>
+
+</div>
+
+  
+</div>
+  </div>
+   <iframe id='my_iframe' style='display:none;'></iframe>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+   <style>
+     #loading{
+       width:30%;
+       margin:10px auto;
+       display:none;
+       padding:10px;
+       border:1px solid #eee;
+     }
+     
+   </style>
+   
+<iframe id='my_iframe' style='display:none;'></iframe>
+<script>
+
+
+    $(document).ready(function() {
+      var trackName2;
+      var artistName2;
+      $("#searchResults").css("display", "none")
+
+      function Download(url) {
+        document.getElementById('my_iframe').src = url;
+      };
+
+      $("input").keydown(function() {
+        var string = $(this).val();
+        window.trackName;
+        window.artistName;
+        
+        $.getJSON("/api/" + string, function(data) {
+          $("#searchResults").slideDown(200)
+          $("#music-name").text("Música: " + data.results[0].trackName);
+          
+          $("#linkDireto").attr('href','/download/'+ data.results[0].artistName +" " +data.results[0].trackName );
+          trackName2 = data.results[0].trackName;
+          artistName2 = data.results[0].artistName;
+          console.log(trackName2);
+          console.log(artistName2);
+          
+        
+        
+        
+          var imageURL = data.results[0].artworkUrl100;
+          var img = imageURL.replace("100x100bb.jpg", "200x200bb.jpg")
+          $("#image").attr("src", img);
+          $("#collection-name").text("Álbum: " + data.results[0].collectionName)
+          $("#artist-name").text(data.results[0].artistName)
+        })
+
+      }).keyup();
+
+      $("#download").on('click', function(e) {
+        var trackName3 =$("#music-name").text()
+        var trackArtist3 =$("#artist-name").text()
+        
+        $(".container").css("opacity","0.2")
+        $("#loading").slideDown(500)
+        e.preventDefault()
+        console.log(window.trackName)
+       
+        $.get('/download/'+trackArtist3+" "+trackName3.replace("Música: ",""), function(e) {
+
+          if (e.statusCode !== 500) {
+            alert('Download começando')
+           Download('/download/' +$("#search").val())
+           //window.location = e
+            $(".container").css("opacity","1")
+        $("#loading").slideUp(500)
+          } else {
+
+            alert(e.message)
+            $('input').val('')
+               $(".container").css("opacity","1")
+        $("#loading").slideUp(500)
+          }
+        })
+
+      })
+    })
+</script>
+  </div>
+</div>
+</body>
+</html>
